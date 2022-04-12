@@ -31,13 +31,16 @@ def index():
     weather['Wind Vector'] = [speed*math.cos(np.radians(45)), speed*math.cos(np.radians(45))]
     form = GolfForm()
     message = ""
-    image = "null.jpg"
+    image = ""
+    initial="none"
     miss = ""
+    landed = "none"
     if form.validate_on_submit():
     # call the function
+        initial="auto"
         speed = float(form.clubSpeed.data)
-        direction = float(form.launchAngle.data)
         angle = float(form.launchAngle.data)
+        direction = float(form.northAngle.data)
         new_spot=drive(speed,direction,angle,[0,0],weather)
         if(new_spot[0] > 500-1 and new_spot[0] < 500 + 1 and new_spot[1] > 500 - 1 and new_spot[1] < 500 + 1):
             message = "Hole in ONE!!!"
@@ -47,8 +50,9 @@ def index():
             message = "Try again!"
             image = "missed.gif"
             miss = new_spot
+            landed = "auto"
 
-    return render_template('index.html', form=form, message=message, image=image, miss=miss)
+    return render_template('index.html', form=form, message=message, image=image, miss=miss, initial=initial, landed=landed)
 
 @app.errorhandler(403)
 def page_forbidden(e):
@@ -59,4 +63,4 @@ def page_not_found(e):
     return render_template('error.html', error=e)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port='8080')

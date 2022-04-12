@@ -4,43 +4,43 @@ import numpy as np
 
 #random weather generator
 def gen_weather():
-    
+
     weather = {}
     speed = random.randint(0,100)
     weather['Wind Speed'] = speed
     dir = random.choice(range(9))
-    
+
     match dir:
         case 0:
             weather['Wind Direction'] = 'N'
             weather['Wind Vector'] = [0, speed]
-        case 1: 
+        case 1:
             weather['Wind Direction'] = 'S'
             weather['Wind Vector'] = [0, -speed]
-        case 2: 
+        case 2:
             weather['Wind Direction'] = 'E'
             weather['Wind Vector'] = [speed, 0]
-        case 3: 
+        case 3:
             weather['Wind Direction'] = 'W'
             weather['Wind Vector'] = [-speed, 0]
-        case 5: 
+        case 5:
             weather['Wind Direction'] = 'NE'
             weather['Wind Vector'] = [speed*math.cos(np.radians(45)), speed*math.cos(np.radians(45))]
-        case 6: 
+        case 6:
             weather['Wind Direction'] = 'NW'
             weather['Wind Vector'] = [speed*math.cos(np.radians(45)), -speed*math.cos(np.radians(45))]
-        case 7: 
+        case 7:
             weather['Wind Direction'] = 'SE'
             weather['Wind Vector'] = [-speed*math.cos(np.radians(45)), speed*math.cos(np.radians(45))]
-        case 8: 
+        case 8:
             weather['Wind Direction'] = 'SW'
             weather['Wind Vector'] = [-speed*math.cos(np.radians(45)), -speed*math.cos(np.radians(45))]
-    
+
     return weather
 
-#drive mode: 3d ballistic motion    
+#drive mode: 3d ballistic motion
 def drive(speed, direction, angle, old_spot, weather):
-       
+
     new_spot = []
     roots = np.roots([-16.1, speed*math.sin(np.radians(angle)), 0])
     time = roots[0]
@@ -48,7 +48,7 @@ def drive(speed, direction, angle, old_spot, weather):
     print(speed)
     print(math.cos(np.radians(direction)))
     print(speed*math.sin(np.radians(direction))*time)
-    
+
     new_spot.append(old_spot[0] + speed*math.sin(np.radians(direction))*math.cos(np.radians(angle))*time + weather['Wind Vector'][0]*time)
     new_spot.append(old_spot[1] + speed*math.cos(np.radians(direction))*math.cos(np.radians(angle))*time + weather['Wind Vector'][1]*time)
 
@@ -87,13 +87,13 @@ def main():
         direction = float(input(print('Degrees from north?')))
         angle = float(input(print('Launch angle?')))
         new_spot = drive(speed, direction, angle, old_spot, weather)
-        
+
         if(new_spot[0] > 500-1 and new_spot[0] < 500 + 1 and new_spot[1] > 500 - 1 and new_spot[1] < 500 + 1 and strokes == 0):
             print("HOLE IN ONE")
             again = str.upper(input(print('Play again?')))
             if again == "Y":
                 continue
-            else: 
+            else:
                 break
         if(new_spot[0] > 500-1 and new_spot[0] < 500 + 1 and new_spot[1] > 500 - 1 and new_spot[1] < 500 + 1):
             print('Sunk')
@@ -101,20 +101,11 @@ def main():
             again = str.upper(input(print('Play again?')))
             if again == "Y":
                 continue
-            else: 
+            else:
                 break
-        
+
         old_spot = new_spot
         strokes = strokes + 1
-        
+
         print("You are now at coordinate point", old_spot)
     
-     
-main()
-
-
-
-
-
-
-
