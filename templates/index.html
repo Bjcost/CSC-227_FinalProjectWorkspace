@@ -29,8 +29,8 @@ HOLE IN ONE
       {{ wtf.quick_form(form) }}
 
       <h3 style="color: #5400AD;" class="pt-5"><strong>{{ message }}</strong></h3>
-      <img style="background: transparent; height: 200px; margin-top: 30px" src="{{url_for('static', filename=image)}}"/>
-      <p class="lead pb-2">Your ball landed here: {{miss}}</p>
+      <img style="background: transparent; height: 200px; margin-top: 30px; display: {{initial}};" src="{{url_for('static', filename=image)}}"/>
+      <p style="display: {{landed}};" class="lead pb-2">Your ball landed here: {{miss}}</p>
 
     </div>
   </div>
