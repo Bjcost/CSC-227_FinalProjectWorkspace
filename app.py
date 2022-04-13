@@ -17,8 +17,8 @@ app.config['SECRET_KEY'] = 'THISISTHECLASSSECRET'
 Bootstrap(app)
 
 class GolfForm(FlaskForm):
-    clubSpeed  = DecimalField('How hard did you hit the ball (speed in ft/s)?', validators=[DataRequired(),NumberRange(min=.01,max=600)])
-    launchAngle = DecimalField('How high did you hit the ball (angle from ground to sky)?', validators=[DataRequired(),NumberRange(min=0,max=89)])
+    clubSpeed  = DecimalField('How hard did you hit the ball (speed in ft/s)?', validators=[DataRequired(),NumberRange(min=1,max=600)])
+    launchAngle = DecimalField('How high did you hit the ball (angle from ground to sky)?', validators=[DataRequired(),NumberRange(min=0,max=90)])
     northAngle = DecimalField('Which direction did you hit the ball (angle from right to left)?', validators=[DataRequired(),NumberRange(min=0,max=180)])
     submit = SubmitField('Swing!')
 
